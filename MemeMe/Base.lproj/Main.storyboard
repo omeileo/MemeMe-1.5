@@ -1,24 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="TimesNewRomanBold.ttf">
+            <string>TimesNewRomanPS-BoldMT</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Camera View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CameraViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZH6-sN-86l">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="0.50184940970000003" blue="0.72937341850000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2NN-Xz-umN">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem image="Memes" width="111" id="mHG-gW-vOJ"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="A9i-sj-RGF"/>
+                                    <barButtonItem image="Gallery" width="116" id="tah-zP-DUh">
+                                        <connections>
+                                            <action selector="launchGallery:" destination="BYZ-38-t0r" id="2G2-hG-tJg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </toolbar>
+                            <textField opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="2Jo-7f-uuT">
+                                <rect key="frame" x="53" y="77" width="269" height="55"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="5Mr-MR-wr9"/>
+                                    <constraint firstAttribute="width" constant="269" id="huK-SH-pfP"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="50"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="editMemeCaption:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="WOd-1h-hq4"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" alpha="0.14999999999999999" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="frM-sL-Cpj">
+                                <rect key="frame" x="53" y="487" width="269" height="55"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="269" id="4n2-eS-qmG"/>
+                                    <constraint firstAttribute="height" constant="55" id="OHw-Mh-qyQ"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="50"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="yes" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="editMemeCaption:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="DMl-oX-HmL"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUY-C6-IIh">
+                                <rect key="frame" x="95" y="547" width="185" height="185"/>
+                                <state key="normal" image="Camera-Released"/>
+                                <state key="highlighted" image="Camera-Tapped"/>
+                                <connections>
+                                    <action selector="takePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Emx-hF-xhP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="892-GK-5nJ">
+                                <rect key="frame" x="20" y="30" width="27" height="27"/>
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="cancelMeme:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pvo-T7-Dgf"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="2Jo-7f-uuT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0uj-Fq-wge"/>
+                            <constraint firstItem="2NN-Xz-umN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3Ri-97-9Zr"/>
+                            <constraint firstItem="VUY-C6-IIh" firstAttribute="top" secondItem="frM-sL-Cpj" secondAttribute="bottom" constant="5" id="9H8-9k-q6j"/>
+                            <constraint firstItem="892-GK-5nJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Erk-XE-MI0"/>
+                            <constraint firstItem="ZH6-sN-86l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Iyd-vE-Usb"/>
+                            <constraint firstItem="VUY-C6-IIh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kh8-PJ-s6F"/>
+                            <constraint firstItem="2NN-Xz-umN" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="My2-X3-aW1"/>
+                            <constraint firstItem="2Jo-7f-uuT" firstAttribute="top" secondItem="892-GK-5nJ" secondAttribute="bottom" constant="20" id="aDr-ox-D9e"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZH6-sN-86l" secondAttribute="trailing" id="ebt-7P-llo"/>
+                            <constraint firstItem="frM-sL-Cpj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fVN-9h-fQX"/>
+                            <constraint firstAttribute="bottom" secondItem="VUY-C6-IIh" secondAttribute="bottom" constant="-65" id="gfg-fL-Cfd"/>
+                            <constraint firstItem="ZH6-sN-86l" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="huj-AG-T0H"/>
+                            <constraint firstItem="892-GK-5nJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="lS8-nM-mV7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZH6-sN-86l" secondAttribute="bottom" id="lUB-Ux-yso"/>
+                            <constraint firstItem="2NN-Xz-umN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qbH-5j-o2V"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="cameraPreviewView" destination="ZH6-sN-86l" id="wf1-xk-pSB"/>
+                        <outlet property="cancelMemeButton" destination="892-GK-5nJ" id="a2F-UU-xXF"/>
+                        <outlet property="galleryButton" destination="tah-zP-DUh" id="bRf-6f-t2B"/>
+                        <outlet property="memeBottomCaptionConstraint" destination="9H8-9k-q6j" id="Ozz-fJ-Htg"/>
+                        <outlet property="memeBottomCaptionTextField" destination="frM-sL-Cpj" id="iOu-sy-f1l"/>
+                        <outlet property="memeGalleryButton" destination="mHG-gW-vOJ" id="BY5-gj-z1p"/>
+                        <outlet property="memeTopCaptionTextField" destination="2Jo-7f-uuT" id="C6u-kn-veF"/>
+                        <outlet property="primaryActionButton" destination="VUY-C6-IIh" id="98x-B7-6jg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="Camera-Released" width="185" height="185"/>
+        <image name="Camera-Tapped" width="185" height="185"/>
+        <image name="Close" width="27" height="27"/>
+        <image name="Gallery" width="20" height="21"/>
+        <image name="Memes" width="23" height="25"/>
+    </resources>
 </document>

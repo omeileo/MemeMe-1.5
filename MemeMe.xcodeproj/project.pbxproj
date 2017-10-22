@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		F3AA5AA91F970D6700B21683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA5AA81F970D6700B21683 /* AppDelegate.swift */; };
-		F3AA5AAB1F970D6700B21683 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA5AAA1F970D6700B21683 /* ViewController.swift */; };
+		F3AA5AAB1F970D6700B21683 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA5AAA1F970D6700B21683 /* CameraViewController.swift */; };
 		F3AA5AAE1F970D6700B21683 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3AA5AAC1F970D6700B21683 /* Main.storyboard */; };
-		F3AA5AB01F970D6700B21683 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3AA5AAF1F970D6700B21683 /* Assets.xcassets */; };
 		F3AA5AB31F970D6700B21683 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3AA5AB11F970D6700B21683 /* LaunchScreen.storyboard */; };
+		F3AA5ABC1F985CD700B21683 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3AA5ABB1F985CD700B21683 /* Assets.xcassets */; };
+		F3AA5ABE1F9C576200B21683 /* CameraViewController+CapturePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA5ABD1F9C576200B21683 /* CameraViewController+CapturePhoto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F3AA5AA51F970D6700B21683 /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AA5AA81F970D6700B21683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F3AA5AAA1F970D6700B21683 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F3AA5AAA1F970D6700B21683 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F3AA5AAD1F970D6700B21683 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F3AA5AAF1F970D6700B21683 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3AA5AB21F970D6700B21683 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3AA5AB41F970D6700B21683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3AA5ABB1F985CD700B21683 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3AA5ABD1F9C576200B21683 /* CameraViewController+CapturePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+CapturePhoto.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				F3AA5AA81F970D6700B21683 /* AppDelegate.swift */,
-				F3AA5AAA1F970D6700B21683 /* ViewController.swift */,
+				F3AA5AAA1F970D6700B21683 /* CameraViewController.swift */,
+				F3AA5ABD1F9C576200B21683 /* CameraViewController+CapturePhoto.swift */,
 				F3AA5AAC1F970D6700B21683 /* Main.storyboard */,
-				F3AA5AAF1F970D6700B21683 /* Assets.xcassets */,
 				F3AA5AB11F970D6700B21683 /* LaunchScreen.storyboard */,
 				F3AA5AB41F970D6700B21683 /* Info.plist */,
+				F3AA5ABB1F985CD700B21683 /* Assets.xcassets */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -124,7 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3AA5AB31F970D6700B21683 /* LaunchScreen.storyboard in Resources */,
-				F3AA5AB01F970D6700B21683 /* Assets.xcassets in Resources */,
+				F3AA5ABC1F985CD700B21683 /* Assets.xcassets in Resources */,
 				F3AA5AAE1F970D6700B21683 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,7 +139,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3AA5AAB1F970D6700B21683 /* ViewController.swift in Sources */,
+				F3AA5ABE1F9C576200B21683 /* CameraViewController+CapturePhoto.swift in Sources */,
+				F3AA5AAB1F970D6700B21683 /* CameraViewController.swift in Sources */,
 				F3AA5AA91F970D6700B21683 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZPFHBBTQY8;
 				INFOPLIST_FILE = MemeMe/Info.plist;
@@ -289,6 +294,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZPFHBBTQY8;
 				INFOPLIST_FILE = MemeMe/Info.plist;
