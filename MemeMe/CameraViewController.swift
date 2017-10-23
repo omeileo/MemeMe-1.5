@@ -17,16 +17,20 @@ class CameraViewController: UIViewController
     @IBOutlet weak var primaryActionButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var primaryActionButtonXCoord: NSLayoutConstraint!
     @IBOutlet weak var primaryActionButtonDistanceFromBottom: NSLayoutConstraint!
-    @IBOutlet weak var galleryButton: UIBarButtonItem!
-    @IBOutlet weak var memeGalleryButton: UIBarButtonItem!
     @IBOutlet weak var memeTopCaptionTextField: UITextField!
     @IBOutlet weak var memeBottomCaptionTextField: UITextField!
     @IBOutlet weak var memeBottomCaptionConstraint: NSLayoutConstraint!
+    @IBOutlet weak var toolbarDistanceFromBottom: NSLayoutConstraint!
     
     var captureSession: AVCaptureSession?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     var capturePhotoOutput: AVCapturePhotoOutput?
     
+    var completedMeme: UIImage!
+    
+    @IBOutlet weak var galleryButton: UIBarButtonItem!
+    @IBOutlet weak var memeGalleryButton: UIBarButtonItem!
+    @IBOutlet weak var secondaryActionButtons: UIStackView!
     @IBOutlet weak var cancelMemeButton: UIButton!
     
     override func viewDidLoad()
@@ -39,6 +43,7 @@ class CameraViewController: UIViewController
     override func viewWillAppear(_ animated: Bool)
     {
         cancelMemeButton.isHidden = true
+        primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Tapped-No-Shadow"), for: .highlighted)
     }
     
     // MARK: Configure Camera and Views for Capturing and Showing Live Camera Feed
@@ -88,8 +93,11 @@ class CameraViewController: UIViewController
         UIView.animate(withDuration: 0.4, animations: {
             self.primaryActionButtonXCoord.constant = 130
             self.primaryActionButtonDistanceFromBottom.constant = 20
-            self.primaryActionButtonHeight.constant -= 120
-            self.primaryActionButtonWidth.constant -= 120
+            self.primaryActionButtonHeight.constant -= 130
+            self.primaryActionButtonWidth.constant -= 130
+            self.toolbarDistanceFromBottom.constant += 44
+            
+            self.secondaryActionButtons.isHidden = false
             
             self.view.layoutIfNeeded()
         }) { (true) in
@@ -97,6 +105,10 @@ class CameraViewController: UIViewController
         }
         
         primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: .highlighted)
+        
+        cancelMemeButton.isHidden = false
+        memeTopCaptionTextField.isEnabled = true
+        memeBottomCaptionTextField.isEnabled = true
     }
     
     func animatePrimaryActionButton()
@@ -129,6 +141,11 @@ class CameraViewController: UIViewController
     @IBAction func editMemeCaption(_ sender: Any)
     {
         
+    }
+    
+    @IBAction func downloadMeme(_ sender: UIButton)
+    {
+        UIImageWriteToSavedPhotosAlbum(completedMeme, nil, nil, nil)
     }
     
     @IBAction func cancelMeme(_ sender: UIButton)
