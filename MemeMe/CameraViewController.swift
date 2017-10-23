@@ -13,6 +13,10 @@ class CameraViewController: UIViewController
 {
     @IBOutlet weak var cameraPreviewView: UIView!
     @IBOutlet weak var primaryActionButton: UIButton!
+    @IBOutlet weak var primaryActionButtonHeight: NSLayoutConstraint!
+    @IBOutlet weak var primaryActionButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var primaryActionButtonXCoord: NSLayoutConstraint!
+    @IBOutlet weak var primaryActionButtonDistanceFromBottom: NSLayoutConstraint!
     @IBOutlet weak var galleryButton: UIBarButtonItem!
     @IBOutlet weak var memeGalleryButton: UIBarButtonItem!
     @IBOutlet weak var memeTopCaptionTextField: UITextField!
@@ -73,6 +77,33 @@ class CameraViewController: UIViewController
         present(shareController, animated: true, completion: nil)
     }
     
+    func configureMemeCreationUI(image capturedImage: UIImage)
+    {
+        captureSession?.stopRunning()
+        
+        // Display captured image in UI
+        
+        
+        // Configure UI
+        UIView.animate(withDuration: 0.4, animations: {
+            self.primaryActionButtonXCoord.constant = 130
+            self.primaryActionButtonDistanceFromBottom.constant = 20
+            self.primaryActionButtonHeight.constant -= 120
+            self.primaryActionButtonWidth.constant -= 120
+            
+            self.view.layoutIfNeeded()
+        }) { (true) in
+            self.primaryActionButton.isSelected = true
+        }
+        
+        primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: .highlighted)
+    }
+    
+    func animatePrimaryActionButton()
+    {
+        
+    }
+    
     @IBAction func takePicture(_ sender: UIButton)
     {
         guard let capturePhotoOutput = capturePhotoOutput else {
@@ -80,10 +111,9 @@ class CameraViewController: UIViewController
         }
         
         // MARK: Configure Photo Settings
-        let photoSettings = AVCapturePhotoSettings()
+        let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg, AVVideoCompressionPropertiesKey: [AVVideoQualityKey: 1.0]])
         photoSettings.isAutoStillImageStabilizationEnabled = true
         photoSettings.isHighResolutionPhotoEnabled = true
-        photoSettings.format?.updateValue(AVVideoCodecType.jpeg, forKey: AVVideoCodecKey)
         photoSettings.flashMode = .auto
         
         // MARK: Capture Photo with Preconfigured Settings

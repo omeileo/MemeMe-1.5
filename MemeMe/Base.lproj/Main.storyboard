@@ -71,7 +71,12 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUY-C6-IIh">
                                 <rect key="frame" x="95" y="547" width="185" height="185"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="185" id="FX7-Fb-eew"/>
+                                    <constraint firstAttribute="height" constant="185" id="UWT-1d-l4Y"/>
+                                </constraints>
                                 <state key="normal" image="Camera-Released"/>
+                                <state key="selected" image="Send"/>
                                 <state key="highlighted" image="Camera-Tapped"/>
                                 <connections>
                                     <action selector="takePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Emx-hF-xhP"/>
@@ -114,6 +119,10 @@
                         <outlet property="memeGalleryButton" destination="mHG-gW-vOJ" id="BY5-gj-z1p"/>
                         <outlet property="memeTopCaptionTextField" destination="2Jo-7f-uuT" id="C6u-kn-veF"/>
                         <outlet property="primaryActionButton" destination="VUY-C6-IIh" id="98x-B7-6jg"/>
+                        <outlet property="primaryActionButtonDistanceFromBottom" destination="gfg-fL-Cfd" id="F0J-K9-j86"/>
+                        <outlet property="primaryActionButtonHeight" destination="UWT-1d-l4Y" id="aIy-3P-wDk"/>
+                        <outlet property="primaryActionButtonWidth" destination="FX7-Fb-eew" id="NgM-Tz-EjP"/>
+                        <outlet property="primaryActionButtonXCoord" destination="Kh8-PJ-s6F" id="Q5w-qj-tqZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -126,5 +135,6 @@
         <image name="Close" width="27" height="27"/>
         <image name="Gallery" width="20" height="21"/>
         <image name="Memes" width="23" height="25"/>
+        <image name="Send" width="50" height="50"/>
     </resources>
 </document>
