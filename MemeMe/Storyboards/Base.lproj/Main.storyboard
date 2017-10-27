@@ -24,10 +24,10 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZH6-sN-86l">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="1" green="0.50184940970000003" blue="0.72937341850000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZiX-9I-AUr" userLabel="Secondary Action Buttons">
-                                <rect key="frame" x="30" y="614" width="70" height="33"/>
+                                <rect key="frame" x="30" y="654" width="70" height="33"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="88H-bh-OdE">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="33"/>
@@ -115,7 +115,7 @@
                             <constraint firstItem="ZH6-sN-86l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Iyd-vE-Usb"/>
                             <constraint firstItem="VUY-C6-IIh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kh8-PJ-s6F"/>
                             <constraint firstItem="2NN-Xz-umN" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="My2-X3-aW1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZiX-9I-AUr" secondAttribute="bottom" constant="20" id="UeT-qC-UoK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZiX-9I-AUr" secondAttribute="bottom" constant="-20" id="UeT-qC-UoK"/>
                             <constraint firstItem="2Jo-7f-uuT" firstAttribute="top" secondItem="892-GK-5nJ" secondAttribute="bottom" constant="20" id="aDr-ox-D9e"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZH6-sN-86l" secondAttribute="trailing" id="ebt-7P-llo"/>
                             <constraint firstItem="frM-sL-Cpj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fVN-9h-fQX"/>
@@ -141,6 +141,7 @@
                         <outlet property="primaryActionButtonWidth" destination="FX7-Fb-eew" id="NgM-Tz-EjP"/>
                         <outlet property="primaryActionButtonXCoord" destination="Kh8-PJ-s6F" id="Q5w-qj-tqZ"/>
                         <outlet property="secondaryActionButtons" destination="ZiX-9I-AUr" id="Ais-pP-8SB"/>
+                        <outlet property="secondaryButtonsDistanceFromBottom" destination="UeT-qC-UoK" id="WpC-tg-Oa6"/>
                         <outlet property="toolbarDistanceFromBottom" destination="My2-X3-aW1" id="Dem-oT-0L4"/>
                     </connections>
                 </viewController>

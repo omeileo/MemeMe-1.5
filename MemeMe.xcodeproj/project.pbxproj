@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F397FB5A1FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F397FB591FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift */; };
 		F3AA5AA91F970D6700B21683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA5AA81F970D6700B21683 /* AppDelegate.swift */; };
 		F3AA5AAB1F970D6700B21683 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA5AAA1F970D6700B21683 /* CameraViewController.swift */; };
 		F3AA5AAE1F970D6700B21683 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3AA5AAC1F970D6700B21683 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F397FB591FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+UIImagePickerControllerDelegate.swift"; sourceTree = "<group>"; };
 		F3AA5AA51F970D6700B21683 /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AA5AA81F970D6700B21683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3AA5AAA1F970D6700B21683 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +39,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F397FB361FA181EF0039FD0B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F397FB371FA182140039FD0B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F397FB391FA1823B0039FD0B /* CameraView */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F397FB381FA1821A0039FD0B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				F3AA5AAC1F970D6700B21683 /* Main.storyboard */,
+				F3AA5AB11F970D6700B21683 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		F397FB391FA1823B0039FD0B /* CameraView */ = {
+			isa = PBXGroup;
+			children = (
+				F3AA5AAA1F970D6700B21683 /* CameraViewController.swift */,
+				F3AA5ABD1F9C576200B21683 /* CameraViewController+CapturePhoto.swift */,
+				F397FB591FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift */,
+			);
+			path = CameraView;
+			sourceTree = "<group>";
+		};
+		F397FB3A1FA182570039FD0B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				F3AA5ABB1F985CD700B21683 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		F3AA5A9C1F970D6600B21683 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +100,12 @@
 		F3AA5AA71F970D6700B21683 /* MemeMe */ = {
 			isa = PBXGroup;
 			children = (
+				F397FB3A1FA182570039FD0B /* Assets */,
+				F397FB361FA181EF0039FD0B /* Model */,
+				F397FB381FA1821A0039FD0B /* Storyboards */,
+				F397FB371FA182140039FD0B /* Controller */,
 				F3AA5AA81F970D6700B21683 /* AppDelegate.swift */,
-				F3AA5AAA1F970D6700B21683 /* CameraViewController.swift */,
-				F3AA5ABD1F9C576200B21683 /* CameraViewController+CapturePhoto.swift */,
-				F3AA5AAC1F970D6700B21683 /* Main.storyboard */,
-				F3AA5AB11F970D6700B21683 /* LaunchScreen.storyboard */,
 				F3AA5AB41F970D6700B21683 /* Info.plist */,
-				F3AA5ABB1F985CD700B21683 /* Assets.xcassets */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -141,6 +184,7 @@
 			files = (
 				F3AA5ABE1F9C576200B21683 /* CameraViewController+CapturePhoto.swift in Sources */,
 				F3AA5AAB1F970D6700B21683 /* CameraViewController.swift in Sources */,
+				F397FB5A1FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift in Sources */,
 				F3AA5AA91F970D6700B21683 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

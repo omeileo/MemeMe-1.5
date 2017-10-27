@@ -13,25 +13,27 @@ class CameraViewController: UIViewController
 {
     @IBOutlet weak var cameraPreviewView: UIView!
     @IBOutlet weak var primaryActionButton: UIButton!
+    @IBOutlet weak var memeBottomCaptionTextField: UITextField!
+    @IBOutlet weak var galleryButton: UIBarButtonItem!
+    @IBOutlet weak var memeGalleryButton: UIBarButtonItem!
+    @IBOutlet weak var secondaryActionButtons: UIStackView!
+    @IBOutlet weak var cancelMemeButton: UIButton!
+    
     @IBOutlet weak var primaryActionButtonHeight: NSLayoutConstraint!
     @IBOutlet weak var primaryActionButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var primaryActionButtonXCoord: NSLayoutConstraint!
-    @IBOutlet weak var primaryActionButtonDistanceFromBottom: NSLayoutConstraint!
     @IBOutlet weak var memeTopCaptionTextField: UITextField!
-    @IBOutlet weak var memeBottomCaptionTextField: UITextField!
+    @IBOutlet weak var primaryActionButtonDistanceFromBottom: NSLayoutConstraint!
     @IBOutlet weak var memeBottomCaptionConstraint: NSLayoutConstraint!
     @IBOutlet weak var toolbarDistanceFromBottom: NSLayoutConstraint!
+    @IBOutlet weak var secondaryButtonsDistanceFromBottom: NSLayoutConstraint!
     
     var captureSession: AVCaptureSession?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     var capturePhotoOutput: AVCapturePhotoOutput?
     
-    var completedMeme: UIImage!
-    
-    @IBOutlet weak var galleryButton: UIBarButtonItem!
-    @IBOutlet weak var memeGalleryButton: UIBarButtonItem!
-    @IBOutlet weak var secondaryActionButtons: UIStackView!
-    @IBOutlet weak var cancelMemeButton: UIButton!
+    var completedMeme: UIImage?
+    var memeImage: UIImage?
     
     override func viewDidLoad()
     {
@@ -82,29 +84,36 @@ class CameraViewController: UIViewController
         present(shareController, animated: true, completion: nil)
     }
     
-    func configureMemeCreationUI(image capturedImage: UIImage)
+    func configureMemeCreationUI()
     {
-        captureSession?.stopRunning()
+        // Configure UI
+        configureView()
         
         // Display captured image in UI
+    }
+    
+    func configureView()
+    {
+        // End live camera capture session
+        captureSession?.stopRunning()
         
-        
-        // Configure UI
-        UIView.animate(withDuration: 0.4, animations: {
+        // Animate primary button and toolbar
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseIn, animations: {
             self.primaryActionButtonXCoord.constant = 130
             self.primaryActionButtonDistanceFromBottom.constant = 20
             self.primaryActionButtonHeight.constant -= 130
             self.primaryActionButtonWidth.constant -= 130
             self.toolbarDistanceFromBottom.constant += 44
-            
-            self.secondaryActionButtons.isHidden = false
+            self.secondaryButtonsDistanceFromBottom.constant = 20
             
             self.view.layoutIfNeeded()
         }) { (true) in
+            // Show secondary action buttons
             self.primaryActionButton.isSelected = true
+            self.secondaryActionButtons.isHidden = false
         }
         
-        primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: .highlighted)
+        primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.highlighted, .selected])
         
         cancelMemeButton.isHidden = false
         memeTopCaptionTextField.isEnabled = true
@@ -114,6 +123,15 @@ class CameraViewController: UIViewController
     func animatePrimaryActionButton()
     {
         
+    }
+    
+    func addImageToView(image: UIImage)
+    {
+        let imageView = UIImageView(image: image)
+        imageView.frame = cameraPreviewView.frame
+        cameraPreviewView.addSubview(imageView)
+        
+        configureView()
     }
     
     @IBAction func takePicture(_ sender: UIButton)
@@ -134,8 +152,8 @@ class CameraViewController: UIViewController
     
     @IBAction func launchGallery(_ sender: Any)
     {
-        let galleryController = UIImagePickerController()
-        present(galleryController, animated: true, completion: nil)
+        let imageSourceType: UIImagePickerControllerSourceType = .photoLibrary
+        handleImageSelection(imageSourceType: imageSourceType)
     }
     
     @IBAction func editMemeCaption(_ sender: Any)
@@ -145,7 +163,11 @@ class CameraViewController: UIViewController
     
     @IBAction func downloadMeme(_ sender: UIButton)
     {
-        UIImageWriteToSavedPhotosAlbum(completedMeme, nil, nil, nil)
+        if let memeImage = memeImage
+        {
+            // Allow download of meme if both Caption fields contain text
+            UIImageWriteToSavedPhotosAlbum(memeImage, nil, nil, nil)
+        }
     }
     
     @IBAction func cancelMeme(_ sender: UIButton)
