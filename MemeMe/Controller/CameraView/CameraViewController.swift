@@ -4,7 +4,7 @@
 //
 //  Created by Jase-Omeileo West on 10/17/17.
 //  Copyright © 2017 Omeileo. All rights reserved.
-//  Custom camera setup code reference from: https://github.com/rizwankce/Camera/blob/master/Camera/ViewController.swift
+//  Custom camera setup code referenced from: https://github.com/rizwankce/Camera/blob/master/Camera/ViewController.swift
 
 import UIKit
 import AVFoundation
@@ -33,19 +33,19 @@ class CameraViewController: UIViewController
     var capturePhotoOutput: AVCapturePhotoOutput?
     
     var completedMeme: UIImage?
-    var memeImage: UIImage?
+    var memeImage: UIImage!
+    var memeImageView: UIImageView!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        setupCamera()
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
-        cancelMemeButton.isHidden = true
-        primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Tapped-No-Shadow"), for: .highlighted)
+        setupCamera()
+        setupCaptions()
+        setupButtons()
     }
     
     // MARK: Configure Camera and Views for Capturing and Showing Live Camera Feed
@@ -60,7 +60,7 @@ class CameraViewController: UIViewController
                 captureSession?.addInput(cameraInput)
                 
                 cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
-                cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+                cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
                 cameraPreviewLayer?.frame = view.layer.bounds
                 cameraPreviewView.layer.addSublayer(cameraPreviewLayer!)
 
@@ -75,6 +75,26 @@ class CameraViewController: UIViewController
                 print(error)
             }
         }
+        else
+        {
+            primaryActionButton.isEnabled = false
+        }
+    }
+    
+    // MARK: Configure Captions for User to Edit
+    func setupCaptions()
+    {
+        
+    }
+    
+    // MARK: Setup Buttons for First Use
+    func setupButtons()
+    {
+        cancelMemeButton.isHidden = true
+        primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Released-No-Shadow"), for: .normal)
+        primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Tapped-No-Shadow"), for: .highlighted)
+        secondaryActionButtons.isHidden = true
+        primaryActionButton.isSelected = false
     }
     
     // MARK: Present Share Options Modally
@@ -84,27 +104,48 @@ class CameraViewController: UIViewController
         present(shareController, animated: true, completion: nil)
     }
     
-    func configureMemeCreationUI()
+    func configureMemeCreationUI(appState: AppState)
     {
-        // Configure UI
-        configureView()
+        switch appState
+        {
+            case .captionEditing:
+                // End live camera capture session
+                captureSession?.stopRunning()
+                
+                // Remove preview layer from view
+                cameraPreviewLayer?.removeFromSuperlayer()
+                
+                // Animate primary button and toolbar
+                animatePrimaryActionButton()
+                
+                // Display captured image in UI
+                addImageToView(image: memeImage)
+                
+                primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.highlighted, .selected])
+                cancelMemeButton.isHidden = !cancelMemeButton.isHidden
+            
+            case .imageSelection:
+                setupCamera()
+                setupCaptions()
+                setupButtons()
+                resetPrimaryActionButton()
+                memeImageView.removeFromSuperview()
+        }
         
-        // Display captured image in UI
+        //        primaryActionButton.isEnabled = false
+        memeTopCaptionTextField.isEnabled = !memeTopCaptionTextField.isEnabled
+        memeBottomCaptionTextField.isEnabled = !memeBottomCaptionTextField.isEnabled
     }
     
-    func configureView()
+    func animatePrimaryActionButton()
     {
-        // End live camera capture session
-        captureSession?.stopRunning()
-        
-        // Animate primary button and toolbar
         UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseIn, animations: {
-            self.primaryActionButtonXCoord.constant = 130
-            self.primaryActionButtonDistanceFromBottom.constant = 20
+            self.primaryActionButtonXCoord.constant += 130
+            self.primaryActionButtonDistanceFromBottom.constant += 65
             self.primaryActionButtonHeight.constant -= 130
             self.primaryActionButtonWidth.constant -= 130
             self.toolbarDistanceFromBottom.constant += 44
-            self.secondaryButtonsDistanceFromBottom.constant = 20
+            self.secondaryButtonsDistanceFromBottom.constant += 40
             
             self.view.layoutIfNeeded()
         }) { (true) in
@@ -112,26 +153,28 @@ class CameraViewController: UIViewController
             self.primaryActionButton.isSelected = true
             self.secondaryActionButtons.isHidden = false
         }
-        
-        primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.highlighted, .selected])
-        
-        cancelMemeButton.isHidden = false
-        memeTopCaptionTextField.isEnabled = true
-        memeBottomCaptionTextField.isEnabled = true
     }
     
-    func animatePrimaryActionButton()
+    func resetPrimaryActionButton()
     {
-        
+        UIView.animate(withDuration: 0.4) {
+            self.primaryActionButtonXCoord.constant -= 130
+            self.primaryActionButtonDistanceFromBottom.constant -= 65
+            self.primaryActionButtonHeight.constant += 130
+            self.primaryActionButtonWidth.constant += 130
+            self.toolbarDistanceFromBottom.constant -= 44
+            self.secondaryButtonsDistanceFromBottom.constant -= 40
+        }
     }
     
     func addImageToView(image: UIImage)
     {
-        let imageView = UIImageView(image: image)
-        imageView.frame = cameraPreviewView.frame
-        cameraPreviewView.addSubview(imageView)
-        
-        configureView()
+        memeImageView = UIImageView(image: image)
+        memeImageView.frame = cameraPreviewView.frame
+        memeImageView.layer.frame = cameraPreviewView.layer.frame
+        memeImageView.contentMode = .scaleAspectFit
+        cameraPreviewView.addSubview(memeImageView)
+        cameraPreviewView.autoresizesSubviews = true
     }
     
     @IBAction func takePicture(_ sender: UIButton)
@@ -148,12 +191,16 @@ class CameraViewController: UIViewController
         
         // MARK: Capture Photo with Preconfigured Settings
         capturePhotoOutput.capturePhoto(with: photoSettings, delegate: self)
+        
+        // Change appState to .captionEditing when image has finished processing (see delegate function)
     }
     
     @IBAction func launchGallery(_ sender: Any)
     {
         let imageSourceType: UIImagePickerControllerSourceType = .photoLibrary
         handleImageSelection(imageSourceType: imageSourceType)
+        
+        // Change appState to .captionEditing when image has been selected (see delegate function)
     }
     
     @IBAction func editMemeCaption(_ sender: Any)
@@ -172,7 +219,7 @@ class CameraViewController: UIViewController
     
     @IBAction func cancelMeme(_ sender: UIButton)
     {
-        
+        configureMemeCreationUI(appState: .imageSelection)
     }
 }
 
