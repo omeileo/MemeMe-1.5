@@ -39,10 +39,6 @@ class CameraViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
         setupCamera()
         setupCaptions()
         setupButtons()
@@ -90,11 +86,12 @@ class CameraViewController: UIViewController
     // MARK: Setup Buttons for First Use
     func setupButtons()
     {
-        cancelMemeButton.isHidden = true
+        primaryActionButton.isEnabled = true
+        primaryActionButton.isSelected = false
         primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Released-No-Shadow"), for: .normal)
         primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Tapped-No-Shadow"), for: .highlighted)
+        cancelMemeButton.isHidden = true
         secondaryActionButtons.isHidden = true
-        primaryActionButton.isSelected = false
     }
     
     // MARK: Present Share Options Modally
@@ -121,8 +118,10 @@ class CameraViewController: UIViewController
                 // Display captured image in UI
                 addImageToView(image: memeImage)
                 
-                primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.highlighted, .selected])
-                cancelMemeButton.isHidden = !cancelMemeButton.isHidden
+                primaryActionButton.isEnabled = false
+                primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Released-No-Shadow"), for: [.normal, .disabled])
+                primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.selected, .disabled])
+                cancelMemeButton.isHidden = false
             
             case .imageSelection:
                 setupCamera()
@@ -132,7 +131,6 @@ class CameraViewController: UIViewController
                 memeImageView.removeFromSuperview()
         }
         
-        //        primaryActionButton.isEnabled = false
         memeTopCaptionTextField.isEnabled = !memeTopCaptionTextField.isEnabled
         memeBottomCaptionTextField.isEnabled = !memeBottomCaptionTextField.isEnabled
     }
@@ -164,22 +162,30 @@ class CameraViewController: UIViewController
             self.primaryActionButtonWidth.constant += 130
             self.toolbarDistanceFromBottom.constant -= 44
             self.secondaryButtonsDistanceFromBottom.constant -= 40
+            
+            self.view.layoutIfNeeded()
         }
+    }
+    
+    func changeConstraints(constraint: CGFloat, value: CGFloat, sign: (CGFloat, CGFloat) -> CGFloat) -> CGFloat
+    {
+        return sign(constraint, value)
     }
     
     func addImageToView(image: UIImage)
     {
         memeImageView = UIImageView(image: image)
-        memeImageView.frame = cameraPreviewView.frame
-        memeImageView.layer.frame = cameraPreviewView.layer.frame
         memeImageView.contentMode = .scaleAspectFit
+        memeImageView.frame = cameraPreviewView.frame
+        
         cameraPreviewView.addSubview(memeImageView)
         cameraPreviewView.autoresizesSubviews = true
     }
     
     @IBAction func takePicture(_ sender: UIButton)
     {
-        guard let capturePhotoOutput = capturePhotoOutput else {
+        guard let capturePhotoOutput = capturePhotoOutput else
+        {
             return
         }
         
