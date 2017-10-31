@@ -18,3 +18,4 @@ enum AppState
     case imageSelection, captionEditing
 }
 
+

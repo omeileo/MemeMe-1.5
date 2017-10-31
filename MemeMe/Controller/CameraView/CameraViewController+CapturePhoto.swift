@@ -20,7 +20,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate
         
         if let capturedImage = UIImage(data: JPEGimageData, scale: 1.0)
         {
-            memeImage = capturedImage
+            meme.originalImage = capturedImage
             configureMemeCreationUI(appState: .captionEditing)
         }
     }

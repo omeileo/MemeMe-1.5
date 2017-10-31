@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Foundation
 
 class CameraViewController: UIViewController
 {
@@ -18,6 +19,8 @@ class CameraViewController: UIViewController
     @IBOutlet weak var memeGalleryButton: UIBarButtonItem!
     @IBOutlet weak var secondaryActionButtons: UIStackView!
     @IBOutlet weak var cancelMemeButton: UIButton!
+    @IBOutlet weak var downloadMemeButton: UIButton!
+    @IBOutlet weak var changeFontButton: UIButton!
     
     @IBOutlet weak var primaryActionButtonHeight: NSLayoutConstraint!
     @IBOutlet weak var primaryActionButtonWidth: NSLayoutConstraint!
@@ -27,18 +30,23 @@ class CameraViewController: UIViewController
     @IBOutlet weak var memeBottomCaptionConstraint: NSLayoutConstraint!
     @IBOutlet weak var toolbarDistanceFromBottom: NSLayoutConstraint!
     @IBOutlet weak var secondaryButtonsDistanceFromBottom: NSLayoutConstraint!
+    @IBOutlet weak var topCaptionDistanceFromTop: NSLayoutConstraint!
+    @IBOutlet weak var bottomCaptionDistanceFromCameraButton: NSLayoutConstraint!
     
     var captureSession: AVCaptureSession?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     var capturePhotoOutput: AVCapturePhotoOutput?
     
-    var completedMeme: UIImage?
-    var memeImage: UIImage!
+    var meme: Meme!
     var memeImageView: UIImageView!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        meme = Meme.init(originalImage: UIImage(named: "Close")!, memeImage: UIImage(named: "Close")!, topCaption: "", bottomCaption: "")
+        
+        primaryActionButton.isEnabled = true
         setupCamera()
         setupCaptions()
         setupButtons()
@@ -49,6 +57,8 @@ class CameraViewController: UIViewController
     {
         if let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         {
+            bottomCaptionDistanceFromCameraButton.constant = 15.0
+            
             do
             {
                 let cameraInput = try AVCaptureDeviceInput(device: captureDevice)
@@ -56,10 +66,13 @@ class CameraViewController: UIViewController
                 captureSession?.addInput(cameraInput)
                 
                 cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
+                cameraPreviewLayer?.connection?.videoOrientation = .portrait
                 cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
-                cameraPreviewLayer?.frame = view.layer.bounds
+                cameraPreviewLayer?.frame = cameraPreviewView.layer.bounds
+                
                 cameraPreviewView.layer.addSublayer(cameraPreviewLayer!)
-
+                cameraPreviewView.autoresizesSubviews = true
+                
                 capturePhotoOutput = AVCapturePhotoOutput()
                 capturePhotoOutput?.isHighResolutionCaptureEnabled = true
                 captureSession?.addOutput(capturePhotoOutput!)
@@ -74,24 +87,45 @@ class CameraViewController: UIViewController
         else
         {
             primaryActionButton.isEnabled = false
+            primaryActionButton.isHidden = true
+            bottomCaptionDistanceFromCameraButton.constant = -65.0
         }
     }
     
     // MARK: Configure Captions for User to Edit
     func setupCaptions()
     {
+        // Set up character attributes for text
+        let memeCaptionAttributes: [String : Any] = [
+            kCTStrokeColorAttributeName as String: UIColor.black,
+            kCTForegroundColorAttributeName as String: UIColor.white,
+            kCTFontAttributeName as String: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            kCTStrokeWidthAttributeName as String: 5.0
+        ]
         
+        // Set up text fields
+        memeTopCaptionTextField.defaultTextAttributes = memeCaptionAttributes
+        memeBottomCaptionTextField.defaultTextAttributes = memeCaptionAttributes
+        
+        memeTopCaptionTextField.placeholder = ""
+        memeTopCaptionTextField.textAlignment = .center
+        memeTopCaptionTextField.adjustsFontSizeToFitWidth = true
+        memeBottomCaptionTextField.placeholder = ""
+        memeBottomCaptionTextField.adjustsFontSizeToFitWidth = true
+        memeBottomCaptionTextField.textAlignment = .center
+        
+        enableCaptions(false)
     }
     
     // MARK: Setup Buttons for First Use
     func setupButtons()
     {
-        primaryActionButton.isEnabled = true
         primaryActionButton.isSelected = false
         primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Released-No-Shadow"), for: .normal)
         primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Tapped-No-Shadow"), for: .highlighted)
         cancelMemeButton.isHidden = true
         secondaryActionButtons.isHidden = true
+        topCaptionDistanceFromTop.constant = 10.0
     }
     
     // MARK: Present Share Options Modally
@@ -116,12 +150,19 @@ class CameraViewController: UIViewController
                 animatePrimaryActionButton()
                 
                 // Display captured image in UI
-                addImageToView(image: memeImage)
+                addImageToView(image: meme.originalImage)
                 
                 primaryActionButton.isEnabled = false
                 primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Released-No-Shadow"), for: [.normal, .disabled])
                 primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.selected, .disabled])
                 cancelMemeButton.isHidden = false
+                downloadMemeButton.isEnabled = false
+                topCaptionDistanceFromTop.constant = 55.0
+                bottomCaptionDistanceFromCameraButton.constant = 15.0
+            
+                enableCaptions(true)
+                memeTopCaptionTextField.placeholder = "TOP"
+                memeBottomCaptionTextField.placeholder = "BOTTOM"
             
             case .imageSelection:
                 setupCamera()
@@ -129,10 +170,9 @@ class CameraViewController: UIViewController
                 setupButtons()
                 resetPrimaryActionButton()
                 memeImageView.removeFromSuperview()
+            
+                enableCaptions(false)
         }
-        
-        memeTopCaptionTextField.isEnabled = !memeTopCaptionTextField.isEnabled
-        memeBottomCaptionTextField.isEnabled = !memeBottomCaptionTextField.isEnabled
     }
     
     func animatePrimaryActionButton()
@@ -148,6 +188,7 @@ class CameraViewController: UIViewController
             self.view.layoutIfNeeded()
         }) { (true) in
             // Show secondary action buttons
+            self.primaryActionButton.isHidden = false
             self.primaryActionButton.isSelected = true
             self.secondaryActionButtons.isHidden = false
         }
@@ -182,6 +223,15 @@ class CameraViewController: UIViewController
         cameraPreviewView.autoresizesSubviews = true
     }
     
+    func enableCaptions(_ state: Bool)
+    {
+        memeTopCaptionTextField.isEnabled = state
+        memeBottomCaptionTextField.isEnabled = state
+        
+        memeTopCaptionTextField.backgroundColor = UIColor(white: 1.0, alpha: 0.15)
+        memeTopCaptionTextField.alpha = 1.0
+    }
+    
     @IBAction func takePicture(_ sender: UIButton)
     {
         guard let capturePhotoOutput = capturePhotoOutput else
@@ -211,21 +261,25 @@ class CameraViewController: UIViewController
     
     @IBAction func editMemeCaption(_ sender: Any)
     {
+        memeTopCaptionTextField.backgroundColor = UIColor(white: 1.0, alpha: 0.0)
         
+        if memeTopCaptionTextField.hasText == true && memeBottomCaptionTextField.hasText == true
+        {
+            downloadMemeButton.isEnabled = true
+        }
     }
     
     @IBAction func downloadMeme(_ sender: UIButton)
     {
-        if let memeImage = memeImage
-        {
-            // Allow download of meme if both Caption fields contain text
-            UIImageWriteToSavedPhotosAlbum(memeImage, nil, nil, nil)
-        }
+        // Allow download of meme if both Caption fields contain text
+        UIImageWriteToSavedPhotosAlbum(meme.memeImage, nil, nil, nil)
     }
     
     @IBAction func cancelMeme(_ sender: UIButton)
     {
         configureMemeCreationUI(appState: .imageSelection)
+        memeTopCaptionTextField.text = ""
+        memeBottomCaptionTextField.text = ""
     }
 }
 

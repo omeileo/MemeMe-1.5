@@ -25,7 +25,11 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
         
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         let imageData = UIImageJPEGRepresentation(image, 0.7)
-        memeImage = UIImage(data: imageData!)
+        
+        if let imageData = imageData
+        {
+            meme.originalImage = UIImage(data: imageData)!
+        }
         
         configureMemeCreationUI(appState: .captionEditing)
     }
