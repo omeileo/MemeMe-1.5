@@ -30,7 +30,7 @@ class CameraViewController: UIViewController
     @IBOutlet weak var memeBottomCaptionConstraint: NSLayoutConstraint!
     @IBOutlet weak var toolbarDistanceFromBottom: NSLayoutConstraint!
     @IBOutlet weak var secondaryButtonsDistanceFromBottom: NSLayoutConstraint!
-    @IBOutlet weak var topCaptionDistanceFromTop: NSLayoutConstraint!
+    @IBOutlet weak var topCaptionDistanceFromCancelButton: NSLayoutConstraint!
     @IBOutlet weak var bottomCaptionDistanceFromCameraButton: NSLayoutConstraint!
     
     var captureSession: AVCaptureSession?
@@ -46,10 +46,28 @@ class CameraViewController: UIViewController
         
         meme = Meme.init(originalImage: UIImage(named: "Close")!, memeImage: UIImage(named: "Close")!, topCaption: "", bottomCaption: "")
         
-        primaryActionButton.isEnabled = true
+        hideKeyboardWhenTappedOutside()
+        subscribeToKeyboardNotifications()
+        
         setupCamera()
         setupCaptions()
         setupButtons()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        
+        unsubcribeFromKeyboardNotifcations()
+    }
+    
+    override func keyboardWillShow(_ notification: Notification) {
+        resetView()
+        
+        if (memeBottomCaptionTextField.isFirstResponder)
+        {
+            super.keyboardWillShow(notification)
+        }
     }
     
     // MARK: Configure Camera and Views for Capturing and Showing Live Camera Feed
@@ -57,6 +75,7 @@ class CameraViewController: UIViewController
     {
         if let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         {
+            primaryActionButton.isEnabled = true
             bottomCaptionDistanceFromCameraButton.constant = 15.0
             
             do
@@ -125,7 +144,7 @@ class CameraViewController: UIViewController
         primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Tapped-No-Shadow"), for: .highlighted)
         cancelMemeButton.isHidden = true
         secondaryActionButtons.isHidden = true
-        topCaptionDistanceFromTop.constant = 10.0
+        //topCaptionDistanceFromCancelButton.constant = 10.0
     }
     
     // MARK: Present Share Options Modally
@@ -157,10 +176,9 @@ class CameraViewController: UIViewController
                 primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.selected, .disabled])
                 cancelMemeButton.isHidden = false
                 downloadMemeButton.isEnabled = false
-                topCaptionDistanceFromTop.constant = 55.0
-                bottomCaptionDistanceFromCameraButton.constant = 15.0
             
                 enableCaptions(true)
+                
                 memeTopCaptionTextField.placeholder = "TOP"
                 memeBottomCaptionTextField.placeholder = "BOTTOM"
             
@@ -184,6 +202,8 @@ class CameraViewController: UIViewController
             self.primaryActionButtonWidth.constant -= 130
             self.toolbarDistanceFromBottom.constant += 44
             self.secondaryButtonsDistanceFromBottom.constant += 40
+            //self.topCaptionDistanceFromCancelButton.constant = 55.0
+            self.bottomCaptionDistanceFromCameraButton.constant = 15.0
             
             self.view.layoutIfNeeded()
         }) { (true) in
@@ -230,6 +250,10 @@ class CameraViewController: UIViewController
         
         memeTopCaptionTextField.backgroundColor = UIColor(white: 1.0, alpha: 0.15)
         memeTopCaptionTextField.alpha = 1.0
+        
+        memeBottomCaptionTextField.backgroundColor = UIColor(white: 1.0, alpha: 0.15)
+        memeBottomCaptionTextField.alpha = 1.0
+
     }
     
     @IBAction func takePicture(_ sender: UIButton)

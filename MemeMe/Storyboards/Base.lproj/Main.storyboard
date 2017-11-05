@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,15 +19,15 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CameraViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZH6-sN-86l">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZiX-9I-AUr" userLabel="Secondary Action Buttons">
-                                <rect key="frame" x="30" y="555" width="70" height="33"/>
+                                <rect key="frame" x="30" y="654" width="70" height="33"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="88H-bh-OdE">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="33"/>
@@ -43,7 +43,7 @@
                                 </subviews>
                             </stackView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2NN-Xz-umN">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem image="Memes" width="111" id="mHG-gW-vOJ"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="A9i-sj-RGF"/>
@@ -55,22 +55,22 @@
                                 </items>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
-                            <textField opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="2Jo-7f-uuT">
-                                <rect key="frame" x="30" y="75" width="260" height="55"/>
+                            <textField opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="justified" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="2Jo-7f-uuT">
+                                <rect key="frame" x="30" y="72" width="315" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="5Mr-MR-wr9"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="50"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="yes" returnKeyType="next"/>
                                 <connections>
                                     <action selector="editMemeCaption:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="WOd-1h-hq4"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" alpha="0.14999999999999999" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="frM-sL-Cpj">
-                                <rect key="frame" x="30" y="358" width="260" height="55"/>
+                                <rect key="frame" x="30" y="457" width="315" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -84,7 +84,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUY-C6-IIh">
-                                <rect key="frame" x="67.5" y="428" width="185" height="185"/>
+                                <rect key="frame" x="95" y="527" width="185" height="185"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="185" id="FX7-Fb-eew"/>
                                     <constraint firstAttribute="height" constant="185" id="UWT-1d-l4Y"/>
@@ -116,7 +116,7 @@
                             <constraint firstItem="2NN-Xz-umN" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="My2-X3-aW1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="frM-sL-Cpj" secondAttribute="trailing" constant="30" id="OWF-JJ-ED2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZiX-9I-AUr" secondAttribute="bottom" constant="-20" id="UeT-qC-UoK"/>
-                            <constraint firstItem="2Jo-7f-uuT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="55" id="aDr-ox-D9e"/>
+                            <constraint firstItem="2Jo-7f-uuT" firstAttribute="top" secondItem="892-GK-5nJ" secondAttribute="bottom" constant="15" id="aDr-ox-D9e"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZH6-sN-86l" secondAttribute="trailing" id="ebt-7P-llo"/>
                             <constraint firstAttribute="bottom" secondItem="VUY-C6-IIh" secondAttribute="bottom" constant="-45" id="gfg-fL-Cfd"/>
                             <constraint firstItem="ZH6-sN-86l" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="huj-AG-T0H"/>
@@ -146,7 +146,7 @@
                         <outlet property="secondaryActionButtons" destination="ZiX-9I-AUr" id="Ais-pP-8SB"/>
                         <outlet property="secondaryButtonsDistanceFromBottom" destination="UeT-qC-UoK" id="WpC-tg-Oa6"/>
                         <outlet property="toolbarDistanceFromBottom" destination="My2-X3-aW1" id="Dem-oT-0L4"/>
-                        <outlet property="topCaptionDistanceFromTop" destination="aDr-ox-D9e" id="nxO-Kp-vWe"/>
+                        <outlet property="topCaptionDistanceFromCancelButton" destination="aDr-ox-D9e" id="0Ue-jm-8vC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

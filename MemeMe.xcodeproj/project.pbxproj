@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F328F40F1FA4D550005DBBCC /* CustomDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F328F40E1FA4D550005DBBCC /* CustomDataTypes.swift */; };
 		F328F4111FA64D3C005DBBCC /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F328F4101FA64D3C005DBBCC /* Meme.swift */; };
+		F34931681FAFA5C400B76DE2 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34931671FAFA5C400B76DE2 /* UIViewController+Utils.swift */; };
 		F397FB5A1FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F397FB591FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift */; };
 		F3AA5AA91F970D6700B21683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA5AA81F970D6700B21683 /* AppDelegate.swift */; };
 		F3AA5AAB1F970D6700B21683 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA5AAA1F970D6700B21683 /* CameraViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		F328F40E1FA4D550005DBBCC /* CustomDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDataTypes.swift; sourceTree = "<group>"; };
 		F328F4101FA64D3C005DBBCC /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
+		F34931671FAFA5C400B76DE2 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		F397FB591FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+UIImagePickerControllerDelegate.swift"; sourceTree = "<group>"; };
 		F3AA5AA51F970D6700B21683 /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AA5AA81F970D6700B21683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F34931661FAFA5A300B76DE2 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F34931671FAFA5C400B76DE2 /* UIViewController+Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		F397FB361FA181EF0039FD0B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -55,6 +65,7 @@
 		F397FB371FA182140039FD0B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F34931661FAFA5A300B76DE2 /* Utils */,
 				F397FB391FA1823B0039FD0B /* CameraView */,
 			);
 			path = Controller;
@@ -190,6 +201,7 @@
 			files = (
 				F328F40F1FA4D550005DBBCC /* CustomDataTypes.swift in Sources */,
 				F3AA5ABE1F9C576200B21683 /* CameraViewController+CapturePhoto.swift in Sources */,
+				F34931681FAFA5C400B76DE2 /* UIViewController+Utils.swift in Sources */,
 				F3AA5AAB1F970D6700B21683 /* CameraViewController.swift in Sources */,
 				F328F4111FA64D3C005DBBCC /* Meme.swift in Sources */,
 				F397FB5A1FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift in Sources */,
