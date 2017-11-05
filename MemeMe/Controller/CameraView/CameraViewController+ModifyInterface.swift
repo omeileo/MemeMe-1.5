@@ -11,6 +11,27 @@ import UIKit
 
 extension CameraViewController
 {
+    @objc func textFieldDidChange (_ textField: UITextField)
+    {
+        if textField.hasText
+        {
+            adjustTextFieldVisibility(textField: textField, colorAlpha: 0.0)
+        }
+        else
+        {
+            adjustTextFieldVisibility(textField: textField, colorAlpha: 0.15)
+        }
+        
+        if memeTopCaptionTextField.hasText == true && memeBottomCaptionTextField.hasText == true
+        {
+            downloadMemeButton.isEnabled = true
+        }
+        else
+        {
+            downloadMemeButton.isEnabled = false
+        }
+    }
+    
     // MARK: Present Share Options Modally
     func shareMeme(meme: UIImage)
     {
@@ -42,9 +63,6 @@ extension CameraViewController
             downloadMemeButton.isEnabled = false
             
             enableCaptions(true)
-            
-            memeTopCaptionTextField.placeholder = "TOP"
-            memeBottomCaptionTextField.placeholder = "BOTTOM"
             
         case .imageSelection:
             setupCamera()
@@ -112,11 +130,26 @@ extension CameraViewController
         memeTopCaptionTextField.isEnabled = state
         memeBottomCaptionTextField.isEnabled = state
         
-        memeTopCaptionTextField.backgroundColor = UIColor(white: 1.0, alpha: 0.15)
-        memeTopCaptionTextField.alpha = 1.0
+        adjustTextFieldVisibility(textField: memeTopCaptionTextField, colorAlpha: 0.15)
+        adjustTextFieldVisibility(textField: memeBottomCaptionTextField, colorAlpha: 0.15)
         
-        memeBottomCaptionTextField.backgroundColor = UIColor(white: 1.0, alpha: 0.15)
-        memeBottomCaptionTextField.alpha = 1.0
-        
+        if state == true
+        {
+            memeTopCaptionTextField.placeholder = "TOP"
+            memeBottomCaptionTextField.placeholder = "BOTTOM"
+        }
+        else
+        {
+            memeTopCaptionTextField.placeholder = ""
+            memeBottomCaptionTextField.placeholder = ""
+            memeTopCaptionTextField.text = ""
+            memeBottomCaptionTextField.text = ""
+        }
+    }
+    
+    func adjustTextFieldVisibility(textField: UITextField, colorAlpha: CGFloat)
+    {
+        textField.backgroundColor = UIColor(white: 1.0, alpha: colorAlpha)
+        textField.alpha = 1.0
     }
 }

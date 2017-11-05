@@ -61,7 +61,8 @@ class CameraViewController: UIViewController
         unsubcribeFromKeyboardNotifcations()
     }
     
-    override func keyboardWillShow(_ notification: Notification) {
+    override func keyboardWillShow(_ notification: Notification)
+    {
         resetView()
         
         if (memeBottomCaptionTextField.isFirstResponder)
@@ -99,12 +100,7 @@ class CameraViewController: UIViewController
     
     @IBAction func editMemeCaption(_ sender: Any)
     {
-        memeTopCaptionTextField.backgroundColor = UIColor(white: 1.0, alpha: 0.0)
         
-        if memeTopCaptionTextField.hasText == true && memeBottomCaptionTextField.hasText == true
-        {
-            downloadMemeButton.isEnabled = true
-        }
     }
     
     @IBAction func downloadMeme(_ sender: UIButton)
@@ -116,8 +112,6 @@ class CameraViewController: UIViewController
     @IBAction func cancelMeme(_ sender: UIButton)
     {
         configureMemeCreationUI(appState: .imageSelection)
-        memeTopCaptionTextField.text = ""
-        memeBottomCaptionTextField.text = ""
     }
 }
 

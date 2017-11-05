@@ -76,6 +76,8 @@ extension CameraViewController
         memeBottomCaptionTextField.textAlignment = .center
         
         enableCaptions(false)
+        memeTopCaptionTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        memeBottomCaptionTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     // MARK: Setup Buttons for First Use
