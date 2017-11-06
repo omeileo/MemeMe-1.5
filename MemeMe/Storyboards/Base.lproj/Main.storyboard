@@ -65,9 +65,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="yes" returnKeyType="next"/>
-                                <connections>
-                                    <action selector="editMemeCaption:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="WOd-1h-hq4"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" alpha="0.14999999999999999" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="frM-sL-Cpj">
                                 <rect key="frame" x="30" y="457" width="315" height="55"/>
@@ -79,9 +76,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="50"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="yes" returnKeyType="done"/>
-                                <connections>
-                                    <action selector="editMemeCaption:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="DMl-oX-HmL"/>
-                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUY-C6-IIh">
                                 <rect key="frame" x="95" y="527" width="185" height="185"/>
@@ -130,6 +124,7 @@
                     <connections>
                         <outlet property="bottomCaptionDistanceFromCameraButton" destination="9H8-9k-q6j" id="zXq-Vj-1xA"/>
                         <outlet property="cameraPreviewView" destination="ZH6-sN-86l" id="wf1-xk-pSB"/>
+                        <outlet property="cancelButtonDistanceFromTop" destination="lS8-nM-mV7" id="1ke-FE-tdI"/>
                         <outlet property="cancelMemeButton" destination="892-GK-5nJ" id="a2F-UU-xXF"/>
                         <outlet property="changeFontButton" destination="639-dr-9Ac" id="Pgc-c5-2Dx"/>
                         <outlet property="downloadMemeButton" destination="88H-bh-OdE" id="uVQ-5E-MW4"/>

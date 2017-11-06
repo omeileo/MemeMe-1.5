@@ -39,7 +39,7 @@ extension CameraViewController
         present(shareController, animated: true, completion: nil)
     }
     
-    func configureMemeCreationUI(appState: AppState)
+    func configureMemeCreationUI()
     {
         switch appState
         {
@@ -54,14 +54,18 @@ extension CameraViewController
                 animatePrimaryActionButton()
                 
                 // Display captured image in UI
-                addImageToView(image: meme.originalImage)
+                if let image = meme.originalImage
+                {
+                    addImageToView(image: image)
+                }
                 
-                primaryActionButton.isEnabled = false
+                // Configure primaryActionButton for different states
                 primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Released-No-Shadow"), for: [.normal, .disabled])
-                primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.selected, .disabled])
+                primaryActionButton.setImage(#imageLiteral(resourceName: "Send-Disabled"), for: [.selected, .disabled])
+                primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.highlighted, .selected])
+
                 cancelMemeButton.isHidden = false
-                downloadMemeButton.isEnabled = false
-                
+                enableActionButtons(false)
                 enableCaptions(true)
             
             case .imageSelection:
@@ -72,6 +76,8 @@ extension CameraViewController
                 memeImageView.removeFromSuperview()
                 
                 enableCaptions(false)
+            
+            default: print("")
         }
     }
     
@@ -84,7 +90,8 @@ extension CameraViewController
             self.primaryActionButtonWidth.constant -= 130
             self.toolbarDistanceFromBottom.constant += 44
             self.secondaryButtonsDistanceFromBottom.constant += 40
-            //self.topCaptionDistanceFromCancelButton.constant = 55.0
+            self.cancelButtonDistanceFromTop.constant = 10.0
+            self.topCaptionDistanceFromCancelButton.constant = 15.0
             self.bottomCaptionDistanceFromCameraButton.constant = 15.0
             
             self.view.layoutIfNeeded()

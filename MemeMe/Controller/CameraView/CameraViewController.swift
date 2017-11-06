@@ -32,6 +32,9 @@ class CameraViewController: UIViewController
     @IBOutlet weak var secondaryButtonsDistanceFromBottom: NSLayoutConstraint!
     @IBOutlet weak var topCaptionDistanceFromCancelButton: NSLayoutConstraint!
     @IBOutlet weak var bottomCaptionDistanceFromCameraButton: NSLayoutConstraint!
+    @IBOutlet weak var cancelButtonDistanceFromTop: NSLayoutConstraint!
+    
+    var appState: AppState!
     
     var captureSession: AVCaptureSession?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -52,12 +55,13 @@ class CameraViewController: UIViewController
     {
         super.viewDidLoad()
         
-        meme = Meme.init(originalImage: UIImage(named: "Close")!, memeImage: UIImage(named: "Close")!, topCaption: "", bottomCaption: "")
+        meme = Meme.init(originalImage: nil, memeImage: nil, topCaption: nil, bottomCaption: nil)
         memeCaptions = [memeTopCaptionTextField, memeBottomCaptionTextField]
         
         hideKeyboardWhenTappedOutside()
         subscribeToKeyboardNotifications()
         
+        appState = AppState.imageSelection
         setupCamera()
         setupCaptions()
         setupButtons()
@@ -82,21 +86,61 @@ class CameraViewController: UIViewController
     
     @IBAction func takePicture(_ sender: UIButton)
     {
-        guard let capturePhotoOutput = capturePhotoOutput else
+        if appState == AppState.imageSelection
         {
-            return
+            guard let capturePhotoOutput = capturePhotoOutput else
+            {
+                return
+            }
+            
+            // MARK: Configure Photo Settings
+            let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg, AVVideoCompressionPropertiesKey: [AVVideoQualityKey: 1.0]])
+            photoSettings.isAutoStillImageStabilizationEnabled = true
+            photoSettings.isHighResolutionPhotoEnabled = true
+            photoSettings.flashMode = .auto
+            
+            // MARK: Capture Photo with Preconfigured Settings
+            capturePhotoOutput.capturePhoto(with: photoSettings, delegate: self)
+            
+            // Change appState to .captionEditing when image has finished processing (see delegate function)
         }
+        else
+        {
+            // MARK: Generate meme image (original image + captions - onscreen controls)
+            generateCompletedMeme()
+            
+            if let meme = meme.memeImage
+            {
+                shareMeme(meme: meme)
+            }
+        }
+    }
+    
+    func generateCompletedMeme()
+    {
+        meme.topCaption = memeTopCaptionTextField.text!
+        meme.bottomCaption = memeBottomCaptionTextField.text!
         
-        // MARK: Configure Photo Settings
-        let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg, AVVideoCompressionPropertiesKey: [AVVideoQualityKey: 1.0]])
-        photoSettings.isAutoStillImageStabilizationEnabled = true
-        photoSettings.isHighResolutionPhotoEnabled = true
-        photoSettings.flashMode = .auto
+        // Hide onscreen controls
+        hideOnscreenControls(true)
         
-        // MARK: Capture Photo with Preconfigured Settings
-        capturePhotoOutput.capturePhoto(with: photoSettings, delegate: self)
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
         
-        // Change appState to .captionEditing when image has finished processing (see delegate function)
+        // Unhide onscreen controls
+        hideOnscreenControls(false)
+        
+        meme.memeImage = memedImage
+    }
+    
+    func hideOnscreenControls(_ state: Bool)
+    {
+        primaryActionButton.isHidden = state
+        secondaryActionButtons.isHidden = state
+        cancelMemeButton.isHidden = state
     }
     
     @IBAction func launchGallery(_ sender: Any)
@@ -107,20 +151,21 @@ class CameraViewController: UIViewController
         // Change appState to .captionEditing when image has been selected (see delegate function)
     }
     
-    @IBAction func editMemeCaption(_ sender: Any)
-    {
-        
-    }
-    
     @IBAction func downloadMeme(_ sender: UIButton)
     {
         // Allow download of meme if both Caption fields contain text
-        UIImageWriteToSavedPhotosAlbum(meme.memeImage, nil, nil, nil)
+        generateCompletedMeme()
+        
+        if let meme = meme.memeImage
+        {
+            UIImageWriteToSavedPhotosAlbum(meme, nil, nil, nil)
+        }
     }
     
     @IBAction func cancelMeme(_ sender: UIButton)
     {
-        configureMemeCreationUI(appState: .imageSelection)
+        appState = AppState.imageSelection
+        configureMemeCreationUI()
     }
 }
 

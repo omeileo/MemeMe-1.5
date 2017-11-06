@@ -31,7 +31,8 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
             meme.originalImage = UIImage(data: imageData)!
         }
         
-        configureMemeCreationUI(appState: .captionEditing)
+        appState = AppState.captionEditing
+        configureMemeCreationUI()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController)

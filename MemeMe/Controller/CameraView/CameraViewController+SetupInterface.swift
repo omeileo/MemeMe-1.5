@@ -18,6 +18,8 @@ extension CameraViewController
         if let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         {
             primaryActionButton.isEnabled = true
+            cancelButtonDistanceFromTop.constant = -60.0
+            topCaptionDistanceFromCancelButton.constant = 45.0
             bottomCaptionDistanceFromCameraButton.constant = 15.0
             
             do
