@@ -24,11 +24,11 @@ extension CameraViewController
         
         if memeTopCaptionTextField.hasText == true && memeBottomCaptionTextField.hasText == true
         {
-            downloadMemeButton.isEnabled = true
+            enableActionButtons(true)
         }
         else
         {
-            downloadMemeButton.isEnabled = false
+            enableActionButtons(false)
         }
     }
     
@@ -43,35 +43,35 @@ extension CameraViewController
     {
         switch appState
         {
-        case .captionEditing:
-            // End live camera capture session
-            captureSession?.stopRunning()
+            case .captionEditing:
+                // End live camera capture session
+                captureSession?.stopRunning()
+                
+                // Remove preview layer from view
+                cameraPreviewLayer?.removeFromSuperlayer()
+                
+                // Animate primary button and toolbar
+                animatePrimaryActionButton()
+                
+                // Display captured image in UI
+                addImageToView(image: meme.originalImage)
+                
+                primaryActionButton.isEnabled = false
+                primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Released-No-Shadow"), for: [.normal, .disabled])
+                primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.selected, .disabled])
+                cancelMemeButton.isHidden = false
+                downloadMemeButton.isEnabled = false
+                
+                enableCaptions(true)
             
-            // Remove preview layer from view
-            cameraPreviewLayer?.removeFromSuperlayer()
-            
-            // Animate primary button and toolbar
-            animatePrimaryActionButton()
-            
-            // Display captured image in UI
-            addImageToView(image: meme.originalImage)
-            
-            primaryActionButton.isEnabled = false
-            primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Released-No-Shadow"), for: [.normal, .disabled])
-            primaryActionButton.setImage(#imageLiteral(resourceName: "Send"), for: [.selected, .disabled])
-            cancelMemeButton.isHidden = false
-            downloadMemeButton.isEnabled = false
-            
-            enableCaptions(true)
-            
-        case .imageSelection:
-            setupCamera()
-            setupCaptions()
-            setupButtons()
-            resetPrimaryActionButton()
-            memeImageView.removeFromSuperview()
-            
-            enableCaptions(false)
+            case .imageSelection:
+                setupCamera()
+                setupCaptions()
+                setupButtons()
+                resetPrimaryActionButton()
+                memeImageView.removeFromSuperview()
+                
+                enableCaptions(false)
         }
     }
     
@@ -127,29 +127,41 @@ extension CameraViewController
     
     func enableCaptions(_ state: Bool)
     {
-        memeTopCaptionTextField.isEnabled = state
-        memeBottomCaptionTextField.isEnabled = state
-        
-        adjustTextFieldVisibility(textField: memeTopCaptionTextField, colorAlpha: 0.15)
-        adjustTextFieldVisibility(textField: memeBottomCaptionTextField, colorAlpha: 0.15)
+        for caption in memeCaptions
+        {
+            caption.isEnabled = state
+            adjustTextFieldVisibility(textField: caption, colorAlpha: 0.15)
+        }
         
         if state == true
         {
-            memeTopCaptionTextField.placeholder = "TOP"
-            memeBottomCaptionTextField.placeholder = "BOTTOM"
+            populateTextField(textField: memeCaptions[0], text: "TOP")
+            populateTextField(textField: memeCaptions[1], text: "BOTTOM")
         }
         else
         {
-            memeTopCaptionTextField.placeholder = ""
-            memeBottomCaptionTextField.placeholder = ""
-            memeTopCaptionTextField.text = ""
-            memeBottomCaptionTextField.text = ""
+            for caption in memeCaptions
+            {
+                populateTextField(textField: caption, text: nil)
+            }
         }
+    }
+    
+    func populateTextField(textField: UITextField, text: String?)
+    {
+        textField.placeholder = text
+        textField.text = nil
     }
     
     func adjustTextFieldVisibility(textField: UITextField, colorAlpha: CGFloat)
     {
         textField.backgroundColor = UIColor(white: 1.0, alpha: colorAlpha)
         textField.alpha = 1.0
+    }
+    
+    func enableActionButtons(_ state: Bool)
+    {
+        downloadMemeButton.isEnabled = state
+        primaryActionButton.isEnabled = state
     }
 }

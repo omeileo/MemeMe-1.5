@@ -40,17 +40,20 @@ class CameraViewController: UIViewController
     var meme: Meme!
     var memeImageView: UIImageView!
     
-    let memeCaptionAttributes:[String:Any] = [
+    let memeCaptionAttributes: [String:Any] = [
         NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
         NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
         NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSAttributedStringKey.strokeWidth.rawValue: -6.00]
+    
+    var memeCaptions: [UITextField] = []
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         meme = Meme.init(originalImage: UIImage(named: "Close")!, memeImage: UIImage(named: "Close")!, topCaption: "", bottomCaption: "")
+        memeCaptions = [memeTopCaptionTextField, memeBottomCaptionTextField]
         
         hideKeyboardWhenTappedOutside()
         subscribeToKeyboardNotifications()

@@ -57,8 +57,11 @@ extension CameraViewController
     func setupCaptions()
     {
         // Set up text fields
-        configureCaption(textField: memeTopCaptionTextField)
-        configureCaption(textField: memeBottomCaptionTextField)
+        for caption in memeCaptions
+        {
+            configureCaption(textField: caption)
+        }
+        
         enableCaptions(false)
     }
     
