@@ -69,6 +69,12 @@ extension CameraViewController
     
     func configureCaption(textField: UITextField)
     {
+        let memeCaptionAttributes: [String:Any] = [
+            NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+            NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
+            NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 50)!,
+            NSAttributedStringKey.strokeWidth.rawValue: -6.00]
+        
         textField.defaultTextAttributes = memeCaptionAttributes
         textField.textAlignment = .center
         textField.adjustsFontSizeToFitWidth = true
@@ -84,6 +90,5 @@ extension CameraViewController
         primaryActionButton.setImage(#imageLiteral(resourceName: "Camera-Tapped-No-Shadow"), for: .highlighted)
         cancelMemeButton.isHidden = true
         secondaryActionButtons.isHidden = true
-        //topCaptionDistanceFromCancelButton.constant = 10.0
     }
 }
