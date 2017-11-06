@@ -56,28 +56,19 @@ extension CameraViewController
     // MARK: Configure Captions for User to Edit
     func setupCaptions()
     {
-        // Set up character attributes for text
-        let memeCaptionAttributes: [String : Any] = [
-            kCTStrokeColorAttributeName as String: UIColor.black,
-            kCTForegroundColorAttributeName as String: UIColor.white,
-            kCTFontAttributeName as String: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            kCTStrokeWidthAttributeName as String: 5.0
-        ]
-        
         // Set up text fields
-        memeTopCaptionTextField.defaultTextAttributes = memeCaptionAttributes
-        memeBottomCaptionTextField.defaultTextAttributes = memeCaptionAttributes
-        
-        memeTopCaptionTextField.placeholder = ""
-        memeTopCaptionTextField.textAlignment = .center
-        memeTopCaptionTextField.adjustsFontSizeToFitWidth = true
-        memeBottomCaptionTextField.placeholder = ""
-        memeBottomCaptionTextField.adjustsFontSizeToFitWidth = true
-        memeBottomCaptionTextField.textAlignment = .center
-        
+        configureCaption(textField: memeTopCaptionTextField)
+        configureCaption(textField: memeBottomCaptionTextField)
         enableCaptions(false)
-        memeTopCaptionTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        memeBottomCaptionTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    func configureCaption(textField: UITextField)
+    {
+        textField.defaultTextAttributes = memeCaptionAttributes
+        textField.textAlignment = .center
+        textField.adjustsFontSizeToFitWidth = true
+        
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     // MARK: Setup Buttons for First Use
