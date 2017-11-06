@@ -48,6 +48,8 @@ class CameraViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        memeTopCaptionTextField.delegate = self
+        memeBottomCaptionTextField.delegate = self
         
         meme = Meme.init(originalImage: nil, memeImage: nil, topCaption: nil, bottomCaption: nil)
         memeCaptions = [memeTopCaptionTextField, memeBottomCaptionTextField]

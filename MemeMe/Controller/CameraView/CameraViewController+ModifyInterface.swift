@@ -38,11 +38,11 @@ extension CameraViewController
         let shareController = UIActivityViewController(activityItems: [meme], applicationActivities: nil)
         present(shareController, animated: true) {
             UIImageWriteToSavedPhotosAlbum(meme, nil, nil, nil)
+            
+            // Reset the UI to Image Selection state
+            self.appState = AppState.imageSelection
+            self.configureMemeCreationUI()
         }
-        
-        // Reset the UI to Image Selection state
-        appState = AppState.imageSelection
-        configureMemeCreationUI()
     }
     
     func configureMemeCreationUI()
