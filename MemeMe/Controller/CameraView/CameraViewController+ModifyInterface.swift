@@ -38,10 +38,6 @@ extension CameraViewController
         let shareController = UIActivityViewController(activityItems: [meme], applicationActivities: nil)
         present(shareController, animated: true) {
             UIImageWriteToSavedPhotosAlbum(meme, nil, nil, nil)
-            
-            // Reset the UI to Image Selection state
-            self.appState = AppState.imageSelection
-            self.configureMemeCreationUI()
         }
     }
     
@@ -132,7 +128,7 @@ extension CameraViewController
     {
         memeImageView = UIImageView(image: image)
         memeImageView.contentMode = .scaleAspectFit
-        memeImageView.frame = cameraPreviewView.frame
+        memeImageView.frame = view.frame
         
         cameraPreviewView.addSubview(memeImageView)
         cameraPreviewView.autoresizesSubviews = true

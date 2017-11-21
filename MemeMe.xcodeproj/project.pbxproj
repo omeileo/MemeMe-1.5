@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F328F40F1FA4D550005DBBCC /* CustomDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F328F40E1FA4D550005DBBCC /* CustomDataTypes.swift */; };
 		F328F4111FA64D3C005DBBCC /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F328F4101FA64D3C005DBBCC /* Meme.swift */; };
+		F343E8D81FC3CC6100392A9C /* CameraViewController+UIInterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343E8D71FC3CC6100392A9C /* CameraViewController+UIInterfaceOrientation.swift */; };
 		F34931681FAFA5C400B76DE2 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34931671FAFA5C400B76DE2 /* UIViewController+Utils.swift */; };
 		F349316E1FAFB0A900B76DE2 /* CameraViewController+SetupInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F349316D1FAFB0A900B76DE2 /* CameraViewController+SetupInterface.swift */; };
 		F34931701FAFB0D700B76DE2 /* CameraViewController+ModifyInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F349316F1FAFB0D700B76DE2 /* CameraViewController+ModifyInterface.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		F328F40E1FA4D550005DBBCC /* CustomDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDataTypes.swift; sourceTree = "<group>"; };
 		F328F4101FA64D3C005DBBCC /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
+		F343E8D71FC3CC6100392A9C /* CameraViewController+UIInterfaceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+UIInterfaceOrientation.swift"; sourceTree = "<group>"; };
 		F34931671FAFA5C400B76DE2 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		F349316D1FAFB0A900B76DE2 /* CameraViewController+SetupInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+SetupInterface.swift"; sourceTree = "<group>"; };
 		F349316F1FAFB0D700B76DE2 /* CameraViewController+ModifyInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+ModifyInterface.swift"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				F3AA5ABD1F9C576200B21683 /* CameraViewController+CapturePhoto.swift */,
 				F397FB591FA18C4B0039FD0B /* CameraViewController+UIImagePickerControllerDelegate.swift */,
 				F34931711FB03BF700B76DE2 /* CameraViewController+UITextFieldDelegate.swift */,
+				F343E8D71FC3CC6100392A9C /* CameraViewController+UIInterfaceOrientation.swift */,
 			);
 			path = CameraView;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			files = (
 				F328F40F1FA4D550005DBBCC /* CustomDataTypes.swift in Sources */,
 				F349316E1FAFB0A900B76DE2 /* CameraViewController+SetupInterface.swift in Sources */,
+				F343E8D81FC3CC6100392A9C /* CameraViewController+UIInterfaceOrientation.swift in Sources */,
 				F3AA5ABE1F9C576200B21683 /* CameraViewController+CapturePhoto.swift in Sources */,
 				F34931681FAFA5C400B76DE2 /* UIViewController+Utils.swift in Sources */,
 				F3AA5AAB1F970D6700B21683 /* CameraViewController.swift in Sources */,

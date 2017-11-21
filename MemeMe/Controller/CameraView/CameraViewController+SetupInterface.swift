@@ -18,24 +18,28 @@ extension CameraViewController
         if let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         {
             primaryActionButton.isEnabled = true
+            memeGalleryButton.isEnabled = false
             cancelButtonDistanceFromTop.constant = -60.0
             topCaptionDistanceFromCancelButton.constant = 45.0
             bottomCaptionDistanceFromCameraButton.constant = 15.0
             
             do
             {
+                // Identify available capture device and add it as the input for a capture session
                 let cameraInput = try AVCaptureDeviceInput(device: captureDevice)
                 captureSession = AVCaptureSession()
                 captureSession?.addInput(cameraInput)
                 
+                // Configure the preview layer that will handle the live video stream (capture session)
                 cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
-                cameraPreviewLayer?.connection?.videoOrientation = .portrait
                 cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
-                cameraPreviewLayer?.frame = cameraPreviewView.layer.bounds
                 
+                // Add the preview layer to the preview view and customize it
                 cameraPreviewView.layer.addSublayer(cameraPreviewLayer!)
                 cameraPreviewView.autoresizesSubviews = true
+                cameraPreviewView.frame = view.bounds
                 
+                // Configure the capture session to accept as output a photo
                 capturePhotoOutput = AVCapturePhotoOutput()
                 capturePhotoOutput?.isHighResolutionCaptureEnabled = true
                 captureSession?.addOutput(capturePhotoOutput!)

@@ -76,6 +76,17 @@ class CameraViewController: UIViewController
         subscribeToKeyboardNotifications()
     }
     
+    // MARK: Set up preview layer to fit and adjust to view in any orientation
+    override func viewDidLayoutSubviews()
+    {
+        cameraPreviewLayer?.frame = view.bounds
+        
+        if let previewLayer = cameraPreviewLayer, (previewLayer.connection?.isVideoOrientationSupported)!
+        {
+            previewLayer.connection?.videoOrientation = UIApplication.shared.statusBarOrientation.videoOrientation ?? .portrait
+        }
+    }
+    
     override func keyboardWillShow(_ notification: Notification)
     {
         resetView()
