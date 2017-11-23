@@ -126,12 +126,26 @@ extension CameraViewController
     
     func addImageToView(image: UIImage)
     {
+        let memeView = UIView()
+        memeView.translatesAutoresizingMaskIntoConstraints = false
+        
         memeImageView = UIImageView(image: image)
         memeImageView.contentMode = .scaleAspectFit
-        memeImageView.frame = view.frame
+        memeImageView.frame = cameraPreviewView.bounds
+
+        memeView.addSubview(memeImageView)
+        cameraPreviewView.addSubview(memeView)
         
-        cameraPreviewView.addSubview(memeImageView)
-        cameraPreviewView.autoresizesSubviews = true
+        configureCameraPreviewViewConstraints()
+    }
+    
+    func configureCameraPreviewViewConstraints()
+    {
+        let centerXLayoutConstraint = NSLayoutConstraint(item: memeImageView, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cameraPreviewView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
+        let centerYLayoutConstraint = NSLayoutConstraint(item: memeImageView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: cameraPreviewView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0)
+        
+        cameraPreviewView.addConstraint(centerXLayoutConstraint)
+        cameraPreviewView.addConstraint(centerYLayoutConstraint)
     }
     
     func enableCaptions(_ state: Bool)
